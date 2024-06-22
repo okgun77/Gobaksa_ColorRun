@@ -6,6 +6,8 @@ public class AreaSpawner : MonoBehaviour
     // 구역(area)의 길이 : 구역 프리팹을 제작할 때 이 길이에 맞춰서 제작
     private readonly float areaLength = 18;
 
+
+    [SerializeField] private Color[]        colors;
     [SerializeField] private GameObject[]   areaPrefabs;
     [SerializeField] private Transform      player;
 
@@ -18,9 +20,10 @@ public class AreaSpawner : MonoBehaviour
 
     public void SpawnArea()
     {
-        int index = Random.Range(0, areaPrefabs.Length);
-        Vector3 position = Vector3.up * areaLength * areaIndex;
-        Instantiate(areaPrefabs[index], position, Quaternion.identity, transform);
+        int         index       = Random.Range(0, areaPrefabs.Length);
+        Vector3     position    = Vector3.up * areaLength * areaIndex;
+        GameObject  area        = Instantiate(areaPrefabs[index], position, Quaternion.identity, transform);
+        area.GetComponent<AreaController>().Setup(colors);
 
         areaIndex++;
     }

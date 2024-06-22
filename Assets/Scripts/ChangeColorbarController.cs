@@ -6,6 +6,9 @@ public class ChangeColorbarController : MonoBehaviour
     private SpriteRenderer[] renderers;
     private float fadeTime = 0.4f;
 
+    public Color CurrentColor { private set; get; }
+
+
     private void Awake()
     {
         renderers = transform.GetComponentsInChildren<SpriteRenderer>();
@@ -13,6 +16,8 @@ public class ChangeColorbarController : MonoBehaviour
 
     public void SetColor(Color _color)
     {
+        CurrentColor = _color;
+
         for (int i = 0; i < renderers.Length; ++i)
         {
             renderers[i].color = _color;
