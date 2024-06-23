@@ -29,7 +29,7 @@ public class PlayerCollision : MonoBehaviour
             // 구역 생성
             areaSpawner.SpawnArea();
 
-            // CHangeCOlorBar 삭제
+            // CHangeColorBar 삭제
             Destroy(_collision.gameObject);
         }
         else if (_collision.CompareTag("Item"))
@@ -38,6 +38,23 @@ public class PlayerCollision : MonoBehaviour
             // 별 오브젝트 삭제
             Destroy(_collision.gameObject);
         }
+        else if (_collision.CompareTag("Obstacle"))
+        {
+            // 같은 색상의 오브젝트와 충돌했을 때
+            if (_collision.GetComponent<SpriteRenderer>().color.Equals(playerColor.CurrentColor))
+            {
+                PlaySound(2);
+                // 도형 오브젝트 삭제
+                Destroy(_collision.gameObject);
+            }
+            else
+            {
+                PlaySound(3);
+                // 게임오버
+                Debug.Log("Player Die");
+            }
+        }
+        
     }
 
     public void PlaySound(int _index)

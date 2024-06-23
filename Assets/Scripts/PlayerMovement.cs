@@ -6,8 +6,10 @@ public class PlayerMovement : MonoBehaviour
     private readonly float minX = -2.75f;
     private readonly float maxX = 2.75f;
 
+
+    [SerializeField] private GameController gameController;
     [SerializeField] private Camera mainCamera;
-    [SerializeField] private float yMoveSpeed = 2f; // ÀüÁø ÀÌµ¿ ¼Óµµ
+    [SerializeField] private float yMoveSpeed = 2f; // ì „ì§„ ì´ë™ ì†ë„
 
     private float startPointX;
     private float finalPointX;
@@ -20,6 +22,8 @@ public class PlayerMovement : MonoBehaviour
 
     private void Update()
     {
+        if (gameController.IsGamePlay == false) return;
+
         MoveToX();
         MoveToY();
     }
@@ -37,10 +41,10 @@ public class PlayerMovement : MonoBehaviour
             finalPointX = mainCamera.ScreenToWorldPoint(Input.mousePosition).x;
             finalPointX -= startPointX;
 
-            // È­¸é °æ°è¸¦ ³Ñ¾î°¡Áö ¾Êµµ·Ï ¼³Á¤
+            // í™”ë©´ ê²½ê³„ë¥¼ ë„˜ì–´ê°€ì§€ ì•Šë„ë¡ ì„¤ì •
             finalPointX = Mathf.Clamp(finalPointX, minX, maxX);
 
-            // ÇÃ·¹ÀÌ¾îÀÇ x À§Ä¡ ¼³Á¤
+            // í”Œë ˆì´ì–´ì˜ x ìœ„ì¹˜ ì„¤ì •
             // trausnform.position = new Vctor2(finalPointX, transform.position.y, 0);
             float velocityY = 0.0f;
             float x = Mathf.SmoothDamp(transform.position.x, finalPointX, ref velocityY, 0.02f);
@@ -49,7 +53,7 @@ public class PlayerMovement : MonoBehaviour
 
     private void MoveToY()
     {
-        // ÇÃ·¹ÀÌ¾îÀÇ y À§Ä¡ ¼³Á¤
+        // í”Œë ˆì´ì–´ì˜ y ìœ„ì¹˜ ì„¤ì •
         transform.position += Vector3.up * yMoveSpeed * Time.deltaTime;
     }
 }
