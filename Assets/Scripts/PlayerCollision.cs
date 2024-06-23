@@ -4,6 +4,7 @@ public class PlayerCollision : MonoBehaviour
 {
     [SerializeField] private AreaSpawner areaSpawner;
     [SerializeField] private PlayerColor playerColor;
+    [SerializeField] private PlayerData  playerData;
 
     [Header("Audio Clips")]
     [SerializeField] private AudioClip[] clips;
@@ -46,6 +47,8 @@ public class PlayerCollision : MonoBehaviour
                 PlaySound(2);
                 // 도형 오브젝트 삭제
                 Destroy(_collision.gameObject);
+                // 플레이어 점수 증가
+                playerData.CurrentScore++;
             }
             else
             {
